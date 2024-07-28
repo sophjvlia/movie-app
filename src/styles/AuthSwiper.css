@@ -1,0 +1,142 @@
+html, #root {
+  font-family: Helvetica;
+  background-color:  #212F3D;
+}
+
+.auth-swiper {
+  max-width: 400px;
+  margin: 5% auto;
+  padding: 30px;
+  border: 1px solid rgba(230, 230, 250, 0.5);
+  border-radius: 20px;
+  overflow-x: hidden;
+  background-color: rgb(230, 230, 250);
+  box-shadow: 0px 0px 5px 2px rgba(220,220,220,0.8);
+}
+
+.auth-swiper h1 {
+  margin: 0;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.9);
+  background-color: inherit;
+}
+
+.auth-swiper form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  background-color: inherit;
+}
+
+.auth-swiper form div {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: inherit;
+}
+
+.auth-swiper form label {
+  margin-bottom: 5px;
+  color: rgba(0, 0, 0, 0.9);
+  background-color: inherit;
+}
+
+.auth-swiper form input {
+  padding: 10px;
+  border: 1px solid rgba(220,220,220,0.8);
+  border-radius: 10px;
+  background-color: #F8F9F9;
+  outline: none;
+}
+
+.auth-swiper form div small {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  font-size: 12px;
+  color: #808080;
+}
+
+.auth-swiper form small {
+  margin-top: 15px;
+  background-color: inherit;
+}
+
+.auth-swiper form span {
+  color:  rgb(75, 0, 130);
+  cursor: pointer;
+  background-color: inherit;
+}
+
+.auth-swiper form button {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(75, 0, 130);
+  color: #fff;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.auth-swiper form button:hover {
+  background-color: rgba(75, 0, 130, 0.85);
+}
+
+.swiper, 
+.swiper-wrapper {
+  background-color: rgb(230, 230, 250);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 300px;
+  min-height: 100px;
+  padding: 30px;
+  border: 1px solid rgba(230, 230, 250, 0.5);
+  border-radius: 20px;
+  background-color: rgb(230, 230, 250);
+  box-shadow: 0px 0px 5px 2px rgba(220,220,220,0.8);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup p {
+  margin: 0;
+  background-color: inherit;
+}
+
+.popup button {
+  margin-top: 15px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(75, 0, 130);
+  color: #fff;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.popup button:hover {
+  background-color: rgba(75, 0, 130, 0.85);
+}
