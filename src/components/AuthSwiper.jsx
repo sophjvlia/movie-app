@@ -23,6 +23,8 @@ const AuthSwiper = () => {
       const { token } = response.data;
       setToken(token);
 
+      localStorage.setItem('token', token);
+
       setTimeout(() => {
         setShowPopup(false);
         navigate('/movies');

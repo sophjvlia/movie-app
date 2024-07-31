@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/Movies.css';
+import { jwtDecode } from 'jwt-decode';
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -14,6 +15,19 @@ const MovieDetails = () => {
   const [selectedSeat, setSelectedSeat] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const getUserInfo = () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        return decodedToken;
+      } catch (error) {
+        console.error('Token decoding error:', error);
+      }
+    }
+    return null;
+  };
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -60,18 +74,22 @@ const MovieDetails = () => {
 
   const handleSeatClick = (seat) => {
     if (seat.booking_status !== 1) {
-      setSelectedSeat(seat.seat_number);
+      setSelectedSeat(seat.seat_id);
     }
   };
 
 
   const book = async () => {
+    const user = getUserInfo();
+    
     try {
       const response = await axios.post('https://booking-system-api-sophjvlias-projects.vercel.app/add-booking', {
-        id: movie.id,
-        selectedTimeslot,
-        selectedSeat,
-        selectedDate
+        movie_id: movie.movie_id,
+        timeslot_id: selectedTimeslot,
+        seat_id: selectedSeat,
+        date: selectedDate,
+        user_id: user.id,
+        email: user.email
       });
       console.log('Booking successful', response.data);
     } catch (error) {
