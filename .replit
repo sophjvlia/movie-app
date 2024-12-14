@@ -1,17 +1,17 @@
 run = "npm run dev"
-modules = ["nodejs-20:v8-20230920-bd784b9"]
+modules = ["nodejs-20", "web"]
 hidden = [".config", "package-lock.json"]
 
 [nix]
-channel = "stable-23_05"
+channel = "stable-24_05"
 
 [unitTest]
 language = "nodejs"
 
 [deployment]
 deploymentTarget = "static"
-build = ["npm", "run", "build"]
 publicDir = "dist"
+run = ["sh", "-c", "npm run dev"]
 
 [[ports]]
 localPort = 5173

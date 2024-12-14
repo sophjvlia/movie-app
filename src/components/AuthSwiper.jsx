@@ -1,9 +1,11 @@
-import React, { useState, useRef, useEffect }  from 'react';
+import React, { useState, useEffect, useContext }  from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import '../styles/AuthSwiper.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../AuthContext";
+
 
 const AuthSwiper = () => {
   const [email, setEmail] = useState('');
@@ -11,25 +13,29 @@ const AuthSwiper = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [message, setMessage] = useState('');
   const [showPopup, setShowPopup] = useState(false);
-  const [token, setToken] = useState('');
   const swiperRef = useState(null);
   const navigate = useNavigate(); 
+  const authContext = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     
     try {
-      const response = await axios.post('https://booking-system-api-sophjvlias-projects.vercel.app/login', { email, password });
-      const { token } = response.data;
-      setToken(token);
+      const response = await axios.post('https://booking-system-api-git-main-sophjvlias-projects.vercel.app/login', { email, password });
+      const { auth, token, user_id } = response.data;
 
-      localStorage.setItem('token', token);
-
-      setTimeout(() => {
-        setShowPopup(false);
+      if (auth) {
+        authContext.setToken(token);
+        localStorage.setItem('token', JSON.stringify(token));
+        localStorage.setItem('id', user_id);
         navigate('/movies');
-      }, 1000);
+      } else {
+        setMessage("Wrong email/password combination");
+        setShowPopup(true);
+      }
     } catch (error) {
+      setMessage("Wrong email/password combination");
+      setShowPopup(true);
       console.error('Login Error:', error.response.data.message);
     }
   };
@@ -48,14 +54,13 @@ const AuthSwiper = () => {
     setPasswordError(false);
 
     try {
-      const response = await axios.post('https://booking-system-api-sophjvlias-projects.vercel.app/signup', { email, password });
-
-      const result = response.json();
+      const response = await axios.post('https://booking-system-api-git-main-sophjvlias-projects.vercel.app/signup', { email, password });
 
       // Set the message and show the popup
       setMessage("You have successfully registered!");
       setShowPopup(true);
-      
+      setEmail('');
+      setPassword('');
     } catch (error) {
       setMessage(error.response.message);
       setShowPopup(true);

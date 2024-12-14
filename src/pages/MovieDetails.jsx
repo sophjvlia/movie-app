@@ -13,6 +13,9 @@ const MovieDetails = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTimeslot, setSelectedTimeslot] = useState(null);
   const [selectedSeat, setSelectedSeat] = useState(null);
+  const [selectedSeatId, setSelectedSeatId] = useState(null);
+  const [message, setMessage] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -32,7 +35,7 @@ const MovieDetails = () => {
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        const response = await axios.get(`https://booking-system-api-sophjvlias-projects.vercel.app/movies/${id}`);
+        const response = await axios.get(`https://booking-system-api-git-main-sophjvlias-projects.vercel.app/movies/${id}`);
         setMovie(response.data.movie);
         setAvailableDates(response.data.available_dates);
       } catch (error) {
@@ -74,7 +77,8 @@ const MovieDetails = () => {
 
   const handleSeatClick = (seat) => {
     if (seat.booking_status !== 1) {
-      setSelectedSeat(seat.seat_id);
+      setSelectedSeat(seat.seat_number);
+      setSelectedSeatId(seat.seat_id);
     }
   };
 
@@ -86,12 +90,14 @@ const MovieDetails = () => {
       const response = await axios.post('https://booking-system-api-sophjvlias-projects.vercel.app/add-booking', {
         movie_id: movie.movie_id,
         timeslot_id: selectedTimeslot,
-        seat_id: selectedSeat,
+        seat_id: selectedSeatId,
         date: selectedDate,
         user_id: user.id,
         email: user.email
       });
       console.log('Booking successful', response.data);
+      setMessage(response.message);
+      showPopup(true);
     } catch (error) {
       console.error('Booking failed', error);
     }
@@ -171,13 +177,23 @@ const MovieDetails = () => {
                   </div>
                 ))}
               </div>
+              <div className="mt-3 mb-5 d-flex justify-content-center">
+                <button id="book" className="btn btn-primary px-5" onClick={book}>Book Now</button>
+              </div>
             </div>
           }
         </div>
-        <div className="mt-3 mb-5">
-          <button id="book" className="btn btn-primary px-5" onClick={book}>Book Now</button>
-        </div>
       </div>
+
+      {showPopup && (
+        <>
+          <div className="overlay" onClick={() => setShowPopup(false)}></div>
+          <div className="popup">
+            <p>{message}</p>
+            <button onClick={() => setShowPopup(false)}>Close</button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
