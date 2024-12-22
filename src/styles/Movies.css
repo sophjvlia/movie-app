@@ -76,6 +76,7 @@
 
 .timeslot-box {
   cursor: pointer;
+  border: 1px solid black;
 }
 
 .timeslot-box.selected {
@@ -113,6 +114,14 @@
 .seat.selected {
   background-color: white;
   color: black;
+}
+
+.seat.disabled {
+  background-color: white;
+  color: darkslategrey;
+  border-color: darkslategrey;
+  pointer-events: none;
+  opacity: 0.65;
 }
 
 .booking {

@@ -44,6 +44,11 @@ function Layout() {
   );
 }
 
+function PublicRoute({ element: Component }) {
+  const { token } = useContext(AuthContext);
+  return token ? <Navigate to="/movies" replace /> : Component;
+}
+
 function PrivateRoute({ element: Component }) {
   const { token } = useContext(AuthContext);
   return token ? Component : <Navigate to="/auth" replace />;
@@ -58,7 +63,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Navigate to={token ? "/movies" : "/auth"} replace />} />
-            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/auth" element={<PublicRoute element={<AuthPage />} />} />
             <Route path="/movies" element={<PrivateRoute element={<Movies />} />} />
             <Route path="/movies/:id" element={<PrivateRoute element={<MovieDetails />} />} />
             <Route path="/bookings" element={<PrivateRoute element={<Bookings />} />} />

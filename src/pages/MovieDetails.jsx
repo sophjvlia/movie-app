@@ -69,6 +69,7 @@ const MovieDetails = () => {
     try {
       const response = await axios.get(`https://booking-system-api-sophjvlias-projects.vercel.app/movies/${id}/${selectedTimeslot}/seats`);
       setAvailableSeats(response.data);
+      console.log(availableSeats);
     } catch (error) {
       setError('Error fetching movies');
     }
@@ -96,8 +97,8 @@ const MovieDetails = () => {
         email: user.email
       });
       console.log('Booking successful', response.data);
-      setMessage(response.message);
-      showPopup(true);
+      setMessage("Booking successful!");
+      setShowPopup(true);
     } catch (error) {
       console.error('Booking failed', error);
     }
@@ -167,7 +168,7 @@ const MovieDetails = () => {
                       const seatNumber = `${row}${col}`;
                       const availableSeat = availableSeats.find(s => s.seat_number === seatNumber);
                       return (
-                        <button key={colIndex} value={seatNumber} className={`seat mx-1 btn btn-outline-light ${availableSeat.booking_status === 1 ? 'btn-secondary' : 'btn-outline-light'} ${selectedSeat === seatNumber ? 'selected' : ''}`}
+                        <button key={colIndex} value={seatNumber} className={`seat mx-1 btn btn-outline-light ${availableSeat.booking_status === 1 ? 'disabled' : 'btn-outline-light'} ${selectedSeat === seatNumber ? 'selected' : ''}`}
                           onClick={() => handleSeatClick(availableSeat)}
                           disabled={availableSeat.booking_status === 1}>
                           {seatNumber}
