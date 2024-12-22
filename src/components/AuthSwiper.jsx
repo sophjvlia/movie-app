@@ -6,19 +6,20 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../AuthContext";
 
-
 const AuthSwiper = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [message, setMessage] = useState('');
   const [showPopup, setShowPopup] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const swiperRef = useState(null);
   const navigate = useNavigate(); 
   const authContext = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     
     try {
       const response = await axios.post('https://booking-system-api-git-main-sophjvlias-projects.vercel.app/login', { email, password });
@@ -37,11 +38,14 @@ const AuthSwiper = () => {
       setMessage("Wrong email/password combination");
       setShowPopup(true);
       console.error('Login Error:', error.response.data.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     // Validate password
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
@@ -64,6 +68,8 @@ const AuthSwiper = () => {
     } catch (error) {
       setMessage(error.response.message);
       setShowPopup(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -126,7 +132,9 @@ const AuthSwiper = () => {
                   required
                 />
               </div>
-              <button type="submit">Log in</button>
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? <span className="spinner"></span> : "Log in"}
+              </button>
               <small>Don't have an account? <span id="signUpSlide">Sign up</span></small>
             </form>
           </div>
@@ -166,7 +174,9 @@ const AuthSwiper = () => {
                   * Password must contain at least one uppercase letter, one lowercase letter, one number, and one symbol.
                 </small>
               </div>
-              <button type="submit">Sign Up</button>
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? <span className="spinner"></span> : "Sign Up"}
+              </button>
               <small>Have an account? <span id="logInSlide">Log in</span></small>
             </form>
           </div>
