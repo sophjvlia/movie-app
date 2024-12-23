@@ -132,11 +132,29 @@ html, #root {
   background-color: rgb(75, 0, 130);
   color: #fff;
   cursor: pointer;
-  margin-top: 20px;
   font-size: 16px;
   width: 100%;
 }
 
 .popup button:hover {
   background-color: rgba(75, 0, 130, 0.85);
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid #fff; 
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

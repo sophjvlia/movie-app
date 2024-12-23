@@ -101,6 +101,7 @@ const Bookings = () => {
         setShowEditModal(false);
         setMessage(response.data.message);
         setShowPopup(true);
+        fetchBookings();
       } catch (error) {
         console.error('Booking failed', error);
       }
@@ -174,8 +175,8 @@ const Bookings = () => {
         <div className="row">
           {bookings && bookings.bookings.length > 0 ? (
             bookings.bookings.map((booking) => (
-              <div key={booking.booking_id} className="col-4 mb-3">
-                <div className="bg-white booking">
+              <div key={booking.booking_id} className="col-lg-4 col-md-6 col-12 mb-3">
+                <div className="bg-white booking mx-auto">
                   <div>
                     <img height="150" src={booking.thumbnail_url} alt="An image of the movie poster" />
                   </div>
