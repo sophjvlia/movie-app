@@ -28,7 +28,7 @@ function Layout() {
             <Navbar.Text>Welcome!</Navbar.Text>
             {token ? (
               <>
-                <Nav.Link href="/bookings">My bookings</Nav.Link>
+                <Nav.Link href="/my-bookings">My bookings</Nav.Link>
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
               </>
             ) : (
@@ -66,7 +66,7 @@ export default function App() {
             <Route path="/auth" element={<PublicRoute element={<AuthPage />} />} />
             <Route path="/movies" element={<PrivateRoute element={<Movies />} />} />
             <Route path="/movies/:id" element={<PrivateRoute element={<MovieDetails />} />} />
-            <Route path="/bookings" element={<PrivateRoute element={<Bookings />} />} />
+            <Route path="/my-bookings" element={<PrivateRoute element={<Bookings />} />} />
           </Route>
         </Routes>
       </BrowserRouter>
