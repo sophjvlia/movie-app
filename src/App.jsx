@@ -33,7 +33,7 @@ function Layout() {
               </>
             ) : (
               <>
-                <Nav.Link href="/login">Login</Nav.Link>
+                <Nav.Link href="/auth">Login</Nav.Link>
               </>
             )}
           </Nav>
